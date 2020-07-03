@@ -1,0 +1,24 @@
+CREATE DATABASE poof;
+
+CREATE TABLE departamento(
+idDepartamento SERIAL NOT NULL PRIMARY KEY,
+nombre VARCHAR(30) NOT NULL,
+ubicacion VARCHAR(30) NOT NULL);
+
+CREATE TABLE usuario(
+idUsuario SERIAL NOT NULL PRIMARY KEY,
+idDepartamento INT NOT NULL,
+contrasena VARCHAR(15) NOT NULL,
+nombre VARCHAR(30) NOT NULL,
+apellido VARCHAR(30),
+dui VARCHAR(9) NOT NULL,
+fechaNacimiento VARCHAR(10) NOT NULL,
+CONSTRAINT fk_departamento_usuario FOREIGN KEY(idDepartamento) REFERENCES departamento(idDepartamento));
+
+CREATE TABLE registro(
+idRegistro SERIAL NOT NULL PRIMARY KEY,
+idUsuario INT NOT NULL,
+entrada BOOLEAN NOT NULL,
+fechaHora TIMESTAMP NOT NULL,
+temperatura DECIMAL NOT NULL,
+CONSTRAINT fk_usuario_registro FOREIGN KEY(idUsuario) REFERENCES usuario(idUsuario));
